@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: seckill-backend
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/seckill_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.seckill.domain.entity
+
+# JWT 配置
+jwt:
+  secret: seckill-system-jwt-secret-key-2026-keep-it-long-enough
+  expiration: 86400000
+  header: Authorization
+  prefix: Bearer
+
+# 跨域配置
+cors:
+  enabled: true
+  allowed-origins: "*"
+
+# 业务常量
+business:
+  order-timeout-minutes: 30
+  max-purchase-per-user: 1
+
+logging:
+  level:
+    com.seckill: debug
+    org.springframework.security: info
